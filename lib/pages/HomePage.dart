@@ -39,100 +39,104 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: EdgeInsets.all(15.0),
         child: Container(
+          width: double.infinity, 
+          height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/all2.png"),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5),
                 BlendMode.darken,
               ),
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 200.0,
-                    child: TextField(
-                      controller: _numberController,
-                      decoration: InputDecoration(
-                        labelText: 'ป้อนจำนวนคน',
-                        labelStyle: TextStyle(color: Colors.white),
-                      ),
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  if (_numberController.text.isNotEmpty) {
-                    int n = int.parse(_numberController.text);
-                    _nameControllers.clear();
-                    for (int i = 0; i < n; i++) {
-                      _nameControllers.add(TextEditingController());
-                    }
-                    setState(() {});
-                  }
-                },
-                child: Text(
-                  'รับจำนวน',
-                  style: TextStyle(fontSize: 15.0),
-                ),
-              ),
-              SizedBox(height: 20.0),
-              if (_nameControllers.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ..._nameControllers.map(
-                      (controller) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 4.0),
-                          child: SizedBox(
-                            width: 200.0,
-                            child: TextField(
-                              controller: controller,
-                              decoration: InputDecoration(
-                                labelText: 'ป้อนชื่อ',
-                                labelStyle: TextStyle(color: Colors.white),
-                                //hintStyle: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        _generateRandomInstitutions();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PageTwo(
-                              institutions: _institutions,
-                              institutionImages: _institutionImages,
-                              resetDataCallback: _resetData,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'สุ่ม',
-                        style: TextStyle(fontSize: 15.0),
+                    SizedBox(
+                      width: 200.0,
+                      child: TextField(
+                        controller: _numberController,
+                        decoration: InputDecoration(
+                          labelText: 'ป้อนจำนวนคน',
+                          labelStyle: TextStyle(color: Colors.white),
+                        ),
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     ),
                   ],
                 ),
-            ],
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_numberController.text.isNotEmpty) {
+                      int n = int.parse(_numberController.text);
+                      _nameControllers.clear();
+                      for (int i = 0; i < n; i++) {
+                        _nameControllers.add(TextEditingController());
+                      }
+                      setState(() {});
+                    }
+                  },
+                  child: Text(
+                    'รับจำนวน',
+                    style: TextStyle(fontSize: 15.0),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                if (_nameControllers.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ..._nameControllers.map(
+                        (controller) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4.0),
+                            child: SizedBox(
+                              width: 200.0,
+                              child: TextField(
+                                controller: controller,
+                                decoration: InputDecoration(
+                                  labelText: 'ป้อนชื่อ',
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  //hintStyle: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          _generateRandomInstitutions();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PageTwo(
+                                institutions: _institutions,
+                                institutionImages: _institutionImages,
+                                resetDataCallback: _resetData,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'สุ่ม',
+                          style: TextStyle(fontSize: 15.0),
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),
